@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Upload Example</title>
+  <!-- Add Bootstrap CSS link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+  <div class="container mt-5">
+    <h1 class="mb-4">File Upload Example</h1>
+    <form id="uploadForm" action="http://localhost:3000/upload" method="post" enctype="multipart/form-data">
+      <div class="mb-3">
+        <label for="fileInput" class="form-label">Choose File:</label>
+        <input type="file" class="form-control" name="file" id="fileInput">
+      </div>
+      
+      
+      <div class="mb-3">
+        <label class="form-label">Add Option:</label>
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="addOptionDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            Select an Option
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="addOptionDropdown">
+            <li><a class="dropdown-item" href="#" data-option="de">Deobfuscate</a></li>
+            <li><a class="dropdown-item" href="#" data-option="lo">Log Interesting</a></li>
+            <li><a class="dropdown-item" href="#" data-option="ph">Match PHPIDS</a></li>
+            <li><a class="dropdown-item" href="#" data-option="phpl">Log Matched PHPIDS</a></li>
+            <li><a class="dropdown-item" href="#" data-option="fo">Format Logging</a></li>
+            <li><a class="dropdown-item" href="#" data-option="bo">Microsoft IIS</a></li>
+            <li><a class="dropdown-item" href="#" data-option="fi">File Type</a></li>
+            <li><a class="dropdown-item" href="#" data-option="ou">Output Format</a></li>
+            <li><a class="dropdown-item" href="#" data-option="js">JSON Logs</a></li>
+            <li><a class="dropdown-item" href="#" data-option="fi">Field Names</a></li>
+            <!-- Add more options as needed -->
+          </ul>
+        </div>
+      </div>
+
+
+      <!-- Add Bootstrap styling for checkboxes and text inputs -->
+      <div class="mb-3 form-check" id="de" style="display: none;">
+        <input type="checkbox" class="form-check-input" name="boolDeobfuscate" id="deobfuscate">
+        <label class="form-check-label" for="deobfuscate">Deobfuscate</label>
+        <i class="fa fa-info-circle" title="True or False value to deobfuscate log entries for output"></i>
+      </div>
+      <div class="mb-3 form-check" id="lo" style="display: none;">
+        <input type="checkbox" class="form-check-input" name="boolOutputSuspicious" id="loginteresting">
+        <label class="form-check-label" for="deobfuscate">Log Interesting</label>
+        <i class="fa fa-info-circle" title="True or False value if interesting deobfuscated entries should be logged"></i>
+      </div>
+      <div class="mb-3 form-check" id="ph" style="display: none;">
+        <input type="checkbox" class="form-check-input" name="boolphpids" id="phpids">
+        <label class="form-check-label" for="phpids">Match PHPIDS</label>
+        <i class="fa fa-info-circle" title="True or False value if PHPIDS rule matching should be performed"></i>
+      </div>
+
+
+
+      <div class="mb-3 form-check" id="phpl" style="display: none;">
+        <input type="checkbox" class="form-check-input" name="boolOutputIDS" id="phplog">
+        <label class="form-check-label" for="phplog">Log Matched PHPIDS</label>
+        <i class="fa fa-info-circle" title="True or False value if PHPIDS rule matches should be logged"></i>
+      </div>
+
+
+
+
+
+      <div class="mb-3 form-check" id="fo" style="display: none;">
+        <input type="checkbox" class="form-check-input" name="boolOutputInteresting" id="formatlogging">
+        <label class="form-check-label" for="formatlogging">Format Logging</label>
+        <i class="fa fa-info-circle" title="True or False value if suspicious formatting should be logged"></i>
+      </div>
+      <div class="mb-3 form-check" id="mi" style="display: none;">
+        <input type="checkbox" class="form-check-input" name="boolIIS" id="MicrosoftIIS">
+        <label class="form-check-label" for="MicrosoftIIS">Microsoft IIS</label>
+        <i class="fa fa-info-circle" title="True or False value if Microsoft IIS logs"></i>
+      </div>
+      <div class="mb-3" id="ft" style="display: none;">
+        <label for="file-type" class="form-label">File Type:</label>
+        <input type="text" class="form-control" name="FileType" id="file-type">
+        <i class="fa fa-info-circle" title="Specify the type of files to process (e.g., log, csv)"></i>
+      </div>
+      
+      <div class="mb-3" id="ou" style="display: none;">
+        <label for="output-format" class="form-label">Output Format:</label>
+        <input type="text" class="form-control" name="OutputFormat" id="output-format">
+        <i class="fa fa-info-circle" title="Specify the type of output file to generated"></i>
+      </div>
+      
+      <div class="mb-3 form-check" id="js" style="display: none;">
+        <input type="checkbox" class="form-check-input" name="boolJSON" id="json-logs">
+        <label class="form-check-label" for="json-logs">JSON Logs</label>
+        <i class="fa fa-info-circle" title="True or False value if log format is JSON"></i>
+      </div>
+      
+      <div class="mb-3" id="fi" style="display: none;">
+        <label for="field-names" class="form-label">Field Names:</label>
+        <input type="text" class="form-control" name="customJsonFieldNames" id="field-names">
+        <i class="fa fa-info-circle" title="JSON representation of field names mapping"></i>
+      </div>      
+
+      <div class="mb-3">
+        <button type="submit" class="btn btn-primary">Upload File</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Add Bootstrap JS and Popper.js if needed -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="uploadFile.js" type=""></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</body>
+</html>
